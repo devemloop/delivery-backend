@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { User } from 'src/user/entities/user.entity';
+import { User } from '@modules/public/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { PostLoginDto } from './dto/post-login.dto';
 import { ConfigService } from '@nestjs/config';
@@ -59,6 +59,11 @@ export class AuthService {
   }
 
   verifyToken(accessToken: string) {
-    return jwt.verify(accessToken, this.JWT_SECRET);
+    return jwt.verify(accessToken, this.JWT_SECRET) as {
+      userId: string;
+      tenantId: string;
+      email: string;
+      name: string;
+    };
   }
 }
