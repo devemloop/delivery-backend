@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from './dto/post-user.dto';
-import { TenantService } from 'src/tenant/tenant.service';
+import { TenantService } from '@modules/public/tenant/tenant.service';
 
 @Injectable()
 export class UserService {
@@ -36,9 +36,12 @@ export class UserService {
 
     body.password = await bcrypt.hash(body.password, await bcrypt.genSalt());
 
-    return this.userRepository.save({
+    const user = await this.userRepository.save({
       ...body,
       tenant,
     });
+
+    delete user.password;
+    return user;
   }
 }

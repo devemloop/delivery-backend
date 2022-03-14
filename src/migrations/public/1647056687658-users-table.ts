@@ -43,6 +43,7 @@ export class usersTable1647056687658 implements MigrationInterface {
           },
         ],
       }),
+      true,
     );
 
     await queryRunner.createForeignKey(
