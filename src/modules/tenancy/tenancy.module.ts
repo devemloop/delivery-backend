@@ -14,7 +14,7 @@ const connectionFactory: FactoryProvider<Promise<Connection>> = {
   useFactory: (request: Request) => {
     const { authData } = request;
 
-    if (authData && authData) {
+    if (authData && authData.tenantId) {
       return getTenantConnection(authData.tenantId);
     }
 

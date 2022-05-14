@@ -3,7 +3,6 @@ import {
   QueryRunner,
   Table,
   TableForeignKey,
-  TableIndex,
 } from 'typeorm';
 
 export class usersTable1647056687658 implements MigrationInterface {

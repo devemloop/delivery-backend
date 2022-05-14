@@ -1,6 +1,7 @@
 import { getTenantConnection } from '@modules/tenancy/tenancy.utils';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { getConnection, getManager } from 'typeorm';
 import { AppModule } from './app.module';
 
@@ -30,6 +31,15 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   await runMigrations();
+
+  const config = new DocumentBuilder()
+    .setTitle('Delivery backend')
+    .setDescription('Delibery backend API')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000);
 }
