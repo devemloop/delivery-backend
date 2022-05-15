@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PostLoginDto } from './dto/post-login.dto';
 import { PublicRoute } from '@shared/decorator/public-route.decorator';
+import { Request } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
@@ -13,5 +14,10 @@ export class AuthController {
   @Post('login')
   async postLogin(@Body() body: PostLoginDto) {
     return this.authService.postLogin(body);
+  }
+
+  @Get('me')
+  async getMe(@Req() req: Request) {
+    return req.authData;
   }
 }

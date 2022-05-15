@@ -6,7 +6,10 @@ import { Request } from 'express';
 export class UserDataMiddleware implements NestMiddleware {
   constructor(private authService: AuthService) {}
   use(req: Request, res: Response, next: () => void) {
-    if (!req.headers['authorization']) {
+    if (
+      !req.headers['authorization'] ||
+      req.originalUrl === '/api/auth/login'
+    ) {
       return next();
     }
 

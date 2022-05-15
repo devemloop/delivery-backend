@@ -6,10 +6,10 @@ import { Connection } from 'typeorm';
 export class CustomerService {
   constructor(
     @Inject(TENANT_DATABASE_CONNECTION)
-    private readonly databaseConnection: Connection,
+    private readonly dbConnection: Connection,
   ) {}
 
   async postCustomer() {
-    console.log(this.databaseConnection);
+    console.log(this.dbConnection);
   }
 }

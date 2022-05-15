@@ -12,7 +12,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Tenant)
+  @OneToOne(() => Tenant, { eager: true })
   @JoinColumn()
   tenant: Tenant;
 

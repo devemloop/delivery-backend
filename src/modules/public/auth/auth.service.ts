@@ -39,6 +39,8 @@ export class AuthService {
       throw new BadRequestException('Usuário e/ou senha inválidos');
     }
 
+    const expiresIn = '3h';
+
     const accessToken = jwt.sign(
       {
         userId: user.id,
@@ -48,13 +50,13 @@ export class AuthService {
       },
       this.JWT_SECRET,
       {
-        expiresIn: '3h',
+        expiresIn,
       },
     );
 
     return {
-      userId: user.id,
       accessToken,
+      expiresIn,
     };
   }
 
